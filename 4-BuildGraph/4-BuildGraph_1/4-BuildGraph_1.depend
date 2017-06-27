@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1492528747 source:d:\data_structure_experiment\3.22\4-buildgraph_1\main.c
+	<stdio.h>
+	<stdlib.h>
+
+1493811336 source:g:\data_structure_experiment\3.22\4-buildgraph_1\main.c
+	<stdio.h>
+	<stdlib.h>
+

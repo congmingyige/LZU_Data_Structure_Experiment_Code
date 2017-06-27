@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1466941180 source:e:\windows_api\23\main.c
+	<windows.h>
+	<Mmsystem.h>
+

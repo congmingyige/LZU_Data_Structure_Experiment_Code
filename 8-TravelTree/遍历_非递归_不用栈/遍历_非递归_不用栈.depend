@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1495616640 source:g:\遍历_非递归_不用栈\main.c
+	<stdio.h>
+	<stdlib.h>
+	<malloc.h>
+

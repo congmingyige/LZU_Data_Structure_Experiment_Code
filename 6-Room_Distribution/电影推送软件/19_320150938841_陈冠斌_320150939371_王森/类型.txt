@@ -1,0 +1,25 @@
+1.static
+WS_CHILD | WS_VISIBLE | WS_BORDER | SS_RIGHT | SS_CENTERIMAGE	//或SS_CENTER
+
+2.edit
+WS_CHILD | WS_VISIBLE | WS_BORDER				//或ES_CENTER
+	
+ES_AUTOHSCROLL		//当输入文字超出横向显示范围时自动滚动
+ES_AUTOVSCROLL		//当输入文字超出纵向显示范围时自动滚动
+ES_READONLY		//只读
+ES_MULTILINE		//多行显示，一般加上WS_VSCROLL
+
+3.botton
+WS_CHILD | WS_VISIBLE | WS_BORDER | BS_CENTER | BS_VCENTER
+
+4.WS
+WS_VSCROLL：创建一个有垂直滚动条的窗口
+
+二字按钮大小 80,40,
+
+
+
+正下方推送
+
+隔几秒更发一个信息
+

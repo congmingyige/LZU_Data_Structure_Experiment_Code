@@ -1,0 +1,13 @@
+全局
+    HMODULE hKernel32 = GetModuleHandle("kernel32");
+    GetConsoleWindow = (PROCGETCONSOLEWINDOW)GetProcAddress(hKernel32,"GetConsoleWindow");
+main 函数中
+    HMODULE hKernel32 = GetModuleHandle("kernel32");
+    GetConsoleWindow = (PROCGETCONSOLEWINDOW)GetProcAddress(hKernel32,"GetConsoleWindow");
+    //然后就可以使用GetConsoleWindow
+    ShowWindow(GetConsoleWindow(), SW_HIDE);
+
+
+
+但是运行完一遍win32后再也不能隐藏了
+

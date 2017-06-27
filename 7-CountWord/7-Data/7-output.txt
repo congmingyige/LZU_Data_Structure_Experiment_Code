@@ -1,0 +1,139 @@
+Ann :
+count:  2
+first occur:    2 1
+
+China :
+count:  2
+first occur:    2 6
+
+How :
+count:  1
+first occur:    8 1
+
+I :
+count:  3
+first occur:    3 6
+
+John :
+count:  3
+first occur:    1 1
+
+Seventeen :
+count:  1
+first occur:    10 1
+
+Where :
+count:  1
+first occur:    1 7
+
+a :
+count:  1
+first occur:    2 15
+
+am :
+count:  1
+first occur:    3 8
+
+baries :
+count:  1
+first occur:    8 21
+
+beautiful :
+count:  1
+first occur:    14 27
+
+but :
+count:  1
+first occur:    14 37
+
+china :
+count:  1
+first occur:    14 13
+
+come :
+count:  1
+first occur:    1 20
+
+country :
+count:  2
+first occur:    2 28
+
+developing :
+count:  1
+first occur:    2 17
+
+do :
+count:  1
+first occur:    1 13
+
+each :
+count:  1
+first occur:    10 19
+
+every :
+count:  1
+first occur:    8 44
+
+expensive :
+count:  1
+first occur:    14 52
+
+from :
+count:  1
+first occur:    1 25
+
+in :
+count:  2
+first occur:    3 34
+
+is :
+count:  3
+first occur:    2 12
+
+it :
+count:  1
+first occur:    14 41
+
+know :
+count:  1
+first occur:    14 3
+
+live :
+count:  1
+first occur:    3 29
+
+many :
+count:  1
+first occur:    8 5
+
+million :
+count:  1
+first occur:    10 11
+
+newly-born :
+count:  1
+first occur:    8 10
+
+proud :
+count:  1
+first occur:    3 16
+
+that :
+count:  2
+first occur:    3 22
+
+very :
+count:  3
+first occur:    3 11
+
+year :
+count:  2
+first occur:    8 50
+
+you :
+count:  1
+first occur:    1 16
+
+your :
+count:  1
+first occur:    8 31

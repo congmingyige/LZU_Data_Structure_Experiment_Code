@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1493818823 source:d:\data_structure_experiment\5.3\7-countword_wordtree\main.c
+	<stdio.h>
+	<stdlib.h>
+	<malloc.h>
+
+1493819384 source:d:\data_structure_experiment\5.3\7-countword\7-countword_wordtree\main.c
+	<stdio.h>
+	<stdlib.h>
+	<malloc.h>
+

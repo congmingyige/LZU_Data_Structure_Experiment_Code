@@ -1,0 +1,4 @@
+最近用codeblocks编写程序中出现 undefined reference to ` _GetStockObject@4'|  的错误提示 。
+
+解决办法:
+右键project->Properties 弹出Project/targets options对话框，在project settings中选择Project's build options 弹出Project build options 对话框 选择linker settings 标签页，在 Other linker options中添加 -mwindows 保存即可

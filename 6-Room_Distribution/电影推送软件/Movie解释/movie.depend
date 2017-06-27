@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1465658206 source:e:\movie\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1465658182 source:e:\movie\init.c
+

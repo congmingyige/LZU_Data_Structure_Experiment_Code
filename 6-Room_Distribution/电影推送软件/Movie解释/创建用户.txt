@@ -1,0 +1,8 @@
+用户寻找
+
+struct name
+{
+	password
+	character  (当前字符)
+	position1,position2(下一字符和同级下一字符位置)
+}

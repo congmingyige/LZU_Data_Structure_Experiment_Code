@@ -1,0 +1,63 @@
+# depslib dependency file v1.0
+1466337625 source:e:\movie\user_login\find_name.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<windows.h>
+	"E:\\Movie\define.h"
+
+1466507239 e:\\movie\define.h
+	<malloc.h>
+	<stdbool.h>
+	<string.h>
+
+1466507396 source:e:\movie\user_login\main.c
+	<windows.h>
+	<string.h>
+	"E:\\Movie\\define.h"
+
+1466507239 e:\\movie\\define.h
+	<malloc.h>
+	<stdbool.h>
+	<string.h>
+
+1466339036 source:e:\movie\user_login\init_user.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	"E:\\Movie\\define.h"
+
+1466557097 source:e:\moviesoftware\user_login\find_name.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<windows.h>
+	"E:\\MovieSoftware\\define.h"
+
+1466649861 e:\\moviesoftware\\define.h
+	<windows.h>
+	<malloc.h>
+	<stdbool.h>
+	<string.h>
+
+1466557120 source:e:\moviesoftware\user_login\init_user.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	"E:\\MovieSoftware\\define.h"
+
+1466638793 source:e:\moviesoftware\user_login\main.c
+	<windows.h>
+	<string.h>
+	"E:\\MovieSoftware\\define.h"
+
+1466640567 source:e:\moviesoftware\user_login\fileclose.c
+	<stdio.h>
+	<stdlib.h>
+
+1466650050 source:e:\moviesoftware\user_login\fileopen.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"E:\\moviesoftware\\define.h"
+

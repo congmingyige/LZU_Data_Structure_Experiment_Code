@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1466936945 source:e:\windows_api\20\main.c
+	<stdio.h>
+	<stdlib.h>
+	<windows.h>
+

@@ -1,0 +1,132 @@
+# depslib dependency file v1.0
+1466550995 source:e:\movie\movie\main.c
+	<windows.h>
+	<stdbool.h>
+	<string.h>
+
+1466521160 source:e:\movie\movie\inputdata.c
+	<stdio.h>
+	<stdlib.h>
+
+1467074968 source:e:\moviesoftware\movie\main.c
+	<windows.h>
+	<stdbool.h>
+	<string.h>
+	"define.h"
+
+1467071326 source:e:\moviesoftware\movie\fileopen.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"define.h"
+
+1466652478 e:\\moviesoftware\\define.h
+	<windows.h>
+	<malloc.h>
+	<stdbool.h>
+	<string.h>
+
+1466952766 e:\moviesoftware\movie\define.h
+	<windows.h>
+	<malloc.h>
+	<stdbool.h>
+	<string.h>
+
+1467071559 source:e:\moviesoftware\movie\fileclose.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"define.h"
+
+1466923962 source:e:\moviesoftware\movie\qsort.c
+	<stdio.h>
+	<stdlib.h>
+	"define.h"
+
+1467071560 source:g:\20_320150938841_陈冠斌_320150939371_王森\moviesoftware\movie\fileclose.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"define.h"
+
+1466952768 g:\20_320150938841_陈冠斌_320150939371_王森\moviesoftware\movie\define.h
+	<windows.h>
+	<malloc.h>
+	<stdbool.h>
+	<string.h>
+
+1467071328 source:g:\20_320150938841_陈冠斌_320150939371_王森\moviesoftware\movie\fileopen.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"define.h"
+
+1467075606 source:g:\20_320150938841_陈冠斌_320150939371_王森\moviesoftware\movie\main.c
+	<windows.h>
+	<stdbool.h>
+	<string.h>
+	"define.h"
+
+1466923964 source:g:\20_320150938841_陈冠斌_320150939371_王森\moviesoftware\movie\qsort.c
+	<stdio.h>
+	<stdlib.h>
+	"define.h"
+
+1467281827 source:e:\电影推送软件\19_320150938841_陈冠斌_320150939371_王森\moviesoftware\movie\fileclose.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"define.h"
+
+1467281828 e:\电影推送软件\19_320150938841_陈冠斌_320150939371_王森\moviesoftware\movie\define.h
+	<windows.h>
+	<malloc.h>
+	<stdbool.h>
+	<string.h>
+
+1467281827 source:e:\电影推送软件\19_320150938841_陈冠斌_320150939371_王森\moviesoftware\movie\fileopen.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"define.h"
+
+1467281828 source:e:\电影推送软件\19_320150938841_陈冠斌_320150939371_王森\moviesoftware\movie\main.c
+	<windows.h>
+	<stdbool.h>
+	<string.h>
+	"define.h"
+
+1467281826 source:e:\电影推送软件\19_320150938841_陈冠斌_320150939371_王森\moviesoftware\movie\qsort.c
+	<stdio.h>
+	<stdlib.h>
+	"define.h"
+
+1467281828 source:d:\data_structure_experiment\6.7\6-room_distribution\电影推送软件\19_320150938841_陈冠斌_320150939371_王森\moviesoftware\movie\fileclose.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"define.h"
+
+1467281830 d:\data_structure_experiment\6.7\6-room_distribution\电影推送软件\19_320150938841_陈冠斌_320150939371_王森\moviesoftware\movie\define.h
+	<windows.h>
+	<malloc.h>
+	<stdbool.h>
+	<string.h>
+
+1467281828 source:d:\data_structure_experiment\6.7\6-room_distribution\电影推送软件\19_320150938841_陈冠斌_320150939371_王森\moviesoftware\movie\fileopen.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"define.h"
+
+1467281830 source:d:\data_structure_experiment\6.7\6-room_distribution\电影推送软件\19_320150938841_陈冠斌_320150939371_王森\moviesoftware\movie\main.c
+	<windows.h>
+	<stdbool.h>
+	<string.h>
+	"define.h"
+
+1467281828 source:d:\data_structure_experiment\6.7\6-room_distribution\电影推送软件\19_320150938841_陈冠斌_320150939371_王森\moviesoftware\movie\qsort.c
+	<stdio.h>
+	<stdlib.h>
+	"define.h"
+

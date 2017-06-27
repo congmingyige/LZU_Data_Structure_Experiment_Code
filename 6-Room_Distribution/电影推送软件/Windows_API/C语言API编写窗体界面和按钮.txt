@@ -1,0 +1,651 @@
+教程
+http://c.biancheng.net/cpp/html/2848.html
+
+事例
+1.http://wenku.baidu.com/link?url=0PjGJEXnJsNs-ubzrhkwOkrY97d3O4DwDJE965_CdJHpuYzrH6mMDVvuhDvCtQIx-RSH2oeOGgtcw3MJKlJ92qM1IfiNu1BPZVl0FlNcXHu
+2.https://yq.aliyun.com/articles/20882
+这个好！3.http://www.cnblogs.com/likebeta/archive/2012/09/11/2680111.html
+
+static SS static
+http://c.biancheng.net/cpp/html/2958.html
+
+button BS button
+http://c.biancheng.net/cpp/html/2959.html
+
+edit ES edit
+http://c.biancheng.net/cpp/html/2961.html
+
+字体获取、纯输出
+http://c.biancheng.net/cpp/html/2952.html
+
+窗口 WS CreateWindow
+http://baike.baidu.com/link?url=ZZ3Ehg6Fjd5XonTbvYDy6J628v7p4DUT_JWG5x66cVFFnUh7VuBusMegc1EBEH5Yxx1C8eRNSehii8uuiSzpJK#3_1
+
+对话框 MessageBox
+http://c.biancheng.net/cpp/html/2848.html
+
+keybd_event，mouse_event模拟产生键盘事件、鼠标事件的使用
+http://blog.csdn.net/dijkstar/article/details/7220004
+
+VC自动关闭弹出的MessageBox对话框的总结 
+http://blog.csdn.net/dijkstar/article/details/8761481
+
+////////////////////////////
+创建子窗口 http://www.cnblogs.com/mr-wid/archive/2012/12/10/2811870.html
+
+62     case WM_CREATE:        //在接收到 WM_CREATE 消息时创建一个子窗口
+63         childHwnd = CreateWindow( szChildClass, TEXT("子窗口"),
+64             WS_CHILDWINDOW | WS_VISIBLE | WS_OVERLAPPEDWINDOW,
+65             10, 10,        //在父窗口客户区(10, 10)位置创建一个子窗口
+66             200, 200,    //子窗口的大小为200x200
+67             hwnd,        //父窗口句柄
+68             (HMENU)1,    //子窗口ID
+69             (HINSTANCE) GetWindowLong(hwnd, GWL_HINSTANCE ),
+70             NULL ) ;
+71         return 0 ;
+
+//////////////////////
+程序注意:
+1.一定要用TEXT(""),而不能用L""
+
+2.一定要加 
+                default:
+                    return DefWindowProc(hWnd,message,wParam,lParam); 
+DefWindowProc函数调用缺省的窗口过程来为应用程序没有处理的任何窗口消息提供缺省的处理。该函数确保每一个消息得到处理。
+3.case后面判断要不要加break
+
+4.最后要加
+DeleteObject(hFont);
+DeleteObject(hPen);
+节省内存
+
+/////////////////////
+文字输出
+example:
+
+sprintf(szTextBuf,TEXT("%.1f"),OverallMark);	//float     有float数据时不能用wsprintf
+
+wsprintf(szUserInfo,TEXT("用户注册成功：\r\n您的用户账号：%s\r\n您的用户密码：%s"),szUsername,szPassword);	//int char
+
+不能是
+sprintf(szNumBuf,TEXT("%.1f"),(szTextBuf[0]-48)+(szTextBuf[2]-48)/10);
+因为结果为整数时系统就输不出正确结果
+
+所以要
+sprintf(szNumBuf,TEXT("%.1f"),(szTextBuf[0]-48.0)+(szTextBuf[2]-48.0)/10.0);
+
+/////
+
+//把TCHAR内容写到edit文本框中
+GetWindowText(hEditUsername, szUsername, 100);
+
+SetWindowText(hStatic, szTextBuf);
+
+//写在窗口中
+
+GetClientRect(hWnd,&rect);
+hdc=GetDC(hWnd);
+SelectObject(hdc,hFont);
+sprintf(xxx,TEXT(""));
+TextOut(hdc, 50, 50, szText, wcslen(szText));
+或
+DrawText(hdc,TEXT("你好，欢迎来到C语言中文网"),-1,&rect,DT_SINGLELINE | DT_CENTER | DT_VCENTER);	//在窗口中间
+
+	其中rect也可以自己定义 rect.left/right/top/bottom  看看自己定义的按钮、文本框的位置
+/////////////////
+
+WM大全
+http://wenku.baidu.com/link?url=81WV4WupEbdxDrb0nxwjbAAJrg0MvLjRHXeJSkJA8u2O_dSahBj0UT3cIAxsro1orah4_amO1MmCF9PuVjvejDtSnB2duMTyrQVRLLJdmBe
+
+不同按键代表的VK
+http://zhidao.baidu.com/link?url=PYUY2uvVwfPyKMaZF70rRnPir5f7QV6JHo2j9nVPu26dsmL_e2xXueevuZAilq2RZ5xeB2GgGfytsde2gjJIfq
+
+etc.
+1    VK_LBUTTON   鼠标左键 
+2    VK_RBUTTON   鼠标右键
+4    VK_MBUTTON   鼠标中键 
+8    VK_BACK    Backspace 
+9    VK_TAB     Tab 
+13   VK_RETURN   Enter(或者另一个)  
+17   VK_CONTROL   Ctrl(或者另一个） 
+18   VK_MENU    Alt(或者另一个) 
+
+WM_KEYDOWN和WM_CHAR都是键盘消息。TranslateMessage函数已经将按键消息转换成字符消息了，那么WndProc函数中需要对事件进行选择。如：键入“D”键，就应该选择WM_CHAR，因为WM_CHAR 只是字母，不包含特殊字符如Ctrl等。
+如果键盘键入的是“Ctrl+D”，则应该选择WM_KEYDOWN，因为WM_KEYDOWN既包含字母也包含特殊字符。
+
+//////////////////////////
+
+1.获得框位置
+RECT rect;
+GetWindowRect(hWnd,&rect);		//可以改成其它
+rect.left rect.top rect.right rect.bottom
+
+2.获得光标位置
+POINT p;
+GetCursorPos(&p);
+p.x p.y
+
+3.设置光标位置
+SetCursorPos(x,y);
+
+4.获得窗口外的鼠标位置
+SetCapture(hWnd);
+
+5.将鼠标指针位置转换为窗口坐标
+ScreenToClient(hwnd,&p);
+6.将鼠标窗口坐标转换为指针位置
+ClientToScreen(hwnd,&p);
+
+7.鼠标按下、松开
+mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_ABSOLUTE,0,0,0,0);  //左边鼠标按下
+mouse_event(MOUSEEVENTF_LEFTUP | MOUSEEVENTF_ABSOLUTE,0,0,0,0);    //左边鼠标松开
+在没有使用MOUSEEVENTF_ABSOLUTE标志时是相对于鼠标当前位置的坐标，如果设置为使用绝对坐标，则dx，dy是相对于屏幕的坐标
+
+按下左键时
+        case WM_LBUTTONDOWN:
+
+8.锁定鼠标在某一位置
+RECT Rect;
+Rect.left=0;
+Rect.top=0;
+Rect.right=600;
+Rect.bottom=800;
+ClipCursor(&Rect);
+
+9.显示、隐藏光标
+ShowCursor(bool); 若bool=true:显示 若bool=false:隐藏
+
+10.模拟鼠标
+事例:
+RECT rc;
+GetWindowRect(hwnd,&rc);	//hwnd可以改为另外的按钮
+SetCursorPos(rc.left+x,rc.top+y);
+mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_ABSOLUTE,0,0,0,0);
+mouse_event(MOUSEEVENTF_LEFTUP | MOUSEEVENTF_ABSOLUTE,0,0,0,0);
+
+12.模拟键盘
+VOID keybd_event(
+BYTE bVk, // virtual-key code
+BYTE bScan, // hardware scan code
+DWORD dwFlags, // flags specifying various function options
+DWORD dwExtraInfo // additional data associated with keystroke
+);
+从原型可以看出，Keybd_event（）共有四个参数：
+第一个为按键的虚拟键值，如回车键为vk_return, tab键为vk_tab（其他具体的参见附录：常用模拟键的键值对照表）；
+第二个参数为扫描码，一般不用设置，用0代替就行；
+第三个参数为选项标志，如果为keydown则置0即可，如果为keyup则设成"KEYEVENTF_KEYUP"；
+第四个参数一般也是置0即可。
+
+事例:
+keybd_event(VK_RETURN,0,0,0);  
+keybd_event(VK_RETURN,0,KEYEVENTF_KEYUP,0);  
+
+//////////////////////////
+
+wParam指定非系统键的虚拟键码,lParam 指定重复次数
+wmId=LOWORD(wParam);
+wmEvent=HIWORD(wParam);
+
+/////
+
+SendMessage();			//将一条消息立即处理
+	SendMessage(hWnd,WM_CHAR,WPARAM('g'),NULL);  //发送一个字符（按键）消息g给当前鼠标所指向的窗口句柄
+	SendMessage(hWnd,WM_COMMAND,(WPARAM)10,NULL);//相当于按了一个按钮,这个按钮窗柄为10(WPARAM wmId)
+	SendMessage(hWnd,WM_PAINT,(WPARAM)10,NULL);
+	SendMessage(hWnd,WM_DESTROY,NULL,NULL);	  //退出
+
+例子:
+SendMessage(hWnd,WM_PAINT,(WPARAM)10,NULL);
+然后
+case WM_PAINT:
+	switch(wParam)
+	{
+		case 10:
+			……
+	}
+
+PostMessage();			//将一条消息放入到消息队列中,稍后处理
+
+            //模拟窗口消息点击了【IDNO】按钮
+            HWND hBtnIDNO =GetDlgItem((HWND)hWnd,IDNO);  	//得到编辑框句柄
+            if (hBtnIDNO)					//如果按下了这个按钮
+            	PostMessage((HWND)hWnd,WM_COMMAND,MAKEWPARAM(IDNO,BN_CLICKED),(LPARAM)h);
+
+BOOL PostMessage(          
+    HWND hWnd,
+    UINT Msg,
+    WPARAM wParam,
+    LPARAM lParam
+);
+PostMessage(hWnd,WM_COMMAND,控件ID,NULL)
+
+/////////////////////////
+
+WM_PAINT消息的优先级很低，它需要等消息队列中的其它消息发送完后才能被处理
+	？？？WM_PAINT重绘意味着重绘区域内的背景将被擦除
+
+1.UpdateWindow(hWnd):	//hWnd为指定窗口
+	调用UpdateWindow函数可使WM_PAINT被直接发送到目标窗口，从而导致窗口立即重绘
+	常用于WM_COMMON中,若在WM_PAINT有内容,则使用UpdateWindow(hWnd);
+
+2.Invalidate():
+	该函数的作用是使整个窗口客户区无效。窗口的客户区无效意味着需要重绘
+	调用Invalidate等函数后窗口不会立即重绘
+
+3.
+BeginPaint       响应 WM_PAINT 消息进行图形刷新 
+GetDC            非 WM_PAINT 消息驱动时用于获取设备上下文
+
+/////////////////////////
+
+http://baike.baidu.com/link?url=aGxD3M7iWfZTBdQvShsb44ql_8FKuUHo7F5bcwHZaDGHKZXqaB0fA_pRlyNHejN1YcwMN0fy0ct2lSC7b67rw_
+
+2.修改窗口状态
+ShowWindow(hWnd,SW_HIDE);	//隐藏
+ShowWindow(hWnd,SW_SHOW);	//显示
+
+还可以最大化，最小化
+SW_MAXIMIZE：最大化指定的窗口
+SW_MINIMIZE：最小化指定的窗口并且激活在Z序的下一个顶层窗口
+
+3.关闭窗口(对应不同方案)
+DestroyWindow(hWnd);
+SendMessage(hWnd,WM_DESTROY,0,0);
+
+4.移动窗口，改变窗口大小
+MoveWindow(wnd,0,0,220,120,NULL);
+MoveWindow(HWND hWnd,int X,int Y,int nWidth,int nHeight,BOOL bRepaint);
+hWnd是要改变大小的窗口的句柄，x,y相对于屏幕的坐标，窗口左上角的位置与之相对应，nWidth和nHeight是窗口新的宽高，bRepaint指定窗口是否重画
+
+5.SetWindowPos
+BOOL SetWindowPos(
+     HWND hWnd,             //要设置的窗口句柄
+     HWND hWndInsertAfter,
+     int X,
+     int Y,                 //X,Y指明窗口左上角的位置
+     int cx,                //窗口宽度
+     int cy,                //窗口高度
+     UINT uFlags);
+
+第二个参数hWndInsertAfter的常用取值：
+HWND_BOTTOM：将窗口置于Z序的底部.
+HWND_NOTOPMOST：如果窗口在Z序顶部，则取消顶部位置，如果不是，则该参数无效
+HWND_TOP:将窗口置于Z序的顶部。
+HWND_TOPMOST:将窗口置于Z序的顶部。窗口当前未被激活，也依然是顶部位置 
+
+最后一个参数uFlags可以是Z序中hWnd的前一个窗口句柄的或以下常用取值：
+SWP_HIDEWINDOW;隐藏窗口
+SWP_SHOWWINDOW：显示窗口
+SWP_NOMOVE指明X,Y参数无效
+SWP_NOSIZE指明CX ,CY参数无效
+SWP_NOZORDER指明hWndInsertAfter参数无效
+
+例子：设置一个窗口像PPS和任务栏那样，总在最前显示。
+SetWindowPos(hWnd,HWND_TOPMOST,0,0,0,0,SWP_SHOWWINDOW|SWP_NOMOVE|SWP_NOSIZE);
+
+6.获得窗口大小
+RECT rc;
+GetWindowRect(hWnd,&rc);	//一般用这个
+GetClientRect(hWnd,&rc);
+rc.left rc.top rc.right rc.bottom
+
+GetWindowRect() 得到的是在屏幕坐标系下的RECT；（即以屏幕左上角为原点） 
+GetClientRect() 得到的是在客户区坐标系下的RECT； （即以所在窗口左上角为原点） 
+
+1.WindowFromPoint根据坐标点获得对应的窗口句柄
+POINT p;
+HWND wnd=WindowFromPoint(p);
+
+GetForegroundWindow获得当前激活的窗口句柄
+
+
+5.窗口句柄获得窗口类名
+TCHAR szTextBuf[100];
+GetClassName(hEditUsername,szTextBuf,255);
+即szTextBuf="edit"
+
+/////////////////////////////////////////////////////////////
+
+MessageBox窗口
+1.GetDlgItem
+获得窗口标识符，即(HMENU)后面的数字，用于wParam
+HWND x=GetDlgItem((HWND)hWnd,IDOK);	//IDNO是窗口名称
+
+2.EndDialog
+清除一个模态对话框,并使系统中止对对话框的任何处理的函数
+
+//////////////////////////////
+键盘快捷键
+
+1.执行程序若放在LRESULT CALLBACK WndProc(HWND hWnd,UINT message,WPARAM wParam,LPARAM lParam)，在文本框里是不能使用的，
+2.要想在文本框里也能执行要放在"TranslateMessage(&msg);  //翻译消息  DispatchMessage(&msg);  //分派消息"的下面
+		返回处理不了的消息,如文本框下按Enter，然后进行处理
+2.使用快捷键时一定不能使用中文输入法
+3.一定要有switch(message)和case XXX,否则按键将会被重复执行很多次
+
+SHORT GetKeyState(int nVirtKey)
+注意:nVirtKey可以写Ascii数字,字母必须用单引号括起来，而不能用双引号
+字母必须写成大写，但大写能用的同时小写也能用
+
+如果同时按下Ctrl+W就退出(单独按Ctrl或W，先按Ctrl后按W不会退出，只有两个键同时按下才有效果)
+switch(message)
+{
+	case WM_KEYDOWN:					
+	if (GetKeyState(VK_CONTROL)<0 && GetKeyState(87)<0)		//小于0代表被按下
+	{
+     		DestroyWindow(hWnd);
+	}
+}
+
+或者
+RegisterHotKey(HWND hWnd,int id,UINT fsModifiers,UINT vk);
+第一个参数    接收热键产生WM_HOTKEY消息的窗口句柄!!!。若该参数NULL，传递给调用线程的WM_HOTKEY消息必须在消息循环中进行处理!!!。
+第二个参数可以自定取值，取值范围0xC000-0xFFFF,这个参数是为了程序能同时拥有多个热键而存在。
+第三个参数fsModifiers的可选取值如下：MOD_ALT（Alt键），MOD_CONTROL（Ctrl键），MOD_SHIFT（Shift键），MOD_WIN（‘田’图标键）
+最一个参数是一个ASCII值，指明具体和哪个非系统键组合。
+如QQ的热键ctrl+alt+z，注册这个热键的语句是RegisterHotKey(NULL,0x0001,MOD_CONTROL|MOD_ALT,‘Z’)
+
+MSG msg;
+RegisterHotKey(hWnd,0x0001,MOD_CONTROL,'W');			//注册热键 Ctrl+W
+//如果没有Ctrl,第三个填0
+
+switch(message)
+{
+	case WM_HOTKEY:
+		if (wParam==0x0001)
+		{
+     			UnregisterHotKey(NULL,0x0001);
+     			DestroyWindow(hWnd);			//释放热键
+		}		
+}
+
+或者
+WASD矩形移动
+switch(message)
+	case WM_CHAR:
+		//上下左右
+     		if(wParam=='a') x-=10;		
+     			else if(wParam=='d') x+=10;
+     				else if(wParam=='w') y-=10;
+     					else if(wParam=='s') y+=10;
+     		RECT rect;
+     		GetClientRect(hwnd,&rect);
+     		InvalidateRect(hwnd,&rect,TRUE);		//发送WM_PAINT消息
+		break;
+
+ 	case WM_PAINT:
+ 		HDC hdc; 
+ 		PAINTSTRUCT ps; 
+ 		hdc=BeginPaint(hwnd,&ps);
+ 		Rectangle(hdc,x,y,x+30,y+30);
+		EndPaint(hWnd,&ps);
+ 		break;
+
+
+
+文本框使用快捷键
+
+//全局变量
+
+1.
+//if这部分放在后边 先初始化，即执行DispatchMessage (&msg);  TranslateMessage(&msg); 
+//像static HWND hLabUsername; 执行一次后就会保存
+
+2.//hwnd 是小写的，因为前面/*****第②步：创建窗口(并让窗口显示出来)*****/  hwnd = CreateWindow()
+
+    while( GetMessage(&msg, NULL, 0, 0) ){
+
+        DispatchMessage (&msg);  //分派消息
+        TranslateMessage(&msg);  //翻译消息
+//处理不了的消息会返回,如文本框下按Enter
+//Enter
+        if (msg.message==WM_KEYDOWN && msg.wParam==VK_RETURN)
+            SendMessage(hwnd,WM_COMMAND,(WPARAM)5,NULL);
+//Tab
+        if (msg.message==WM_KEYDOWN && msg.wParam==VK_TAB)
+        {
+            GetCursorPos(&p);
+            GetWindowRect(hEditUsername,&rect1);
+            GetWindowRect(hEditPassword,&rect2);
+            GetWindowRect(hBtnLogin,&rect3);
+            if (rect1.left<=p.x && rect1.right>=p.x && rect1.top<=p.y && rect1.bottom>=p.y)
+                SetCursorPos(rect2.left,rect2.top);
+            else if (rect2.left<=p.x && rect2.right>=p.x && rect2.top<=p.y && rect2.bottom>=p.y)
+                SetCursorPos((rect3.left+rect3.right)/2,(rect3.top+rect3.bottom)/2);
+            else
+                SetCursorPos(rect1.left,rect1.top);
+            mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_ABSOLUTE,0,0,0,0);
+            mouse_event(MOUSEEVENTF_LEFTUP | MOUSEEVENTF_ABSOLUTE,0,0,0,0);
+        }
+        //Ctrl+W 后面有case WM_KEYDOWN: 是在非文本框内按Ctrl+W
+        if (GetKeyState(VK_CONTROL)<0  && GetKeyState('W')<0)
+            DestroyWindow(hwnd);
+    }
+
+////////////////////////
+
+WM_CREATE是窗口创建CreateWindow时,系统给消息处理程序发送的消息,每次窗口创建,有且只有1个WM_CREATE消息,所以只运行1次
+
+////////////////////////
+
+    wndclass.lpfnWndProc  = WndProc;  //窗口过程
+
+LRESULT CALLBACK WndProc(HWND hWnd,UINT message,WPARAM wParam,LPARAM lParam)是每有一个新的消息就执行一次，
+消息为SetWindowText()、输入一个字符、鼠标按在文本框、按了一个按钮……
+
+1.所以初始化不在写在此中(要写在int WINAPI WinMain()函数里的最前面(在创建窗口之前)),这个子程序中需要一直使用数值的变量要加static
+
+2.edit文本框还没开始输入就要执行LRESULT CALLBACK WndProc(HWND hWnd,UINT message,WPARAM wParam,LPARAM lParam)
+	所以要注意判断去除还没开始输入就要执行的状况
+  按钮按下才会执行LRESULT CALLBACK WndProc(HWND hWnd,UINT message,WPARAM wParam,LPARAM lParam)
+
+////////////////////////
+工程 结构体 整形变量
+define.h:
+struct a
+{
+};
+extern struct a a;
+
+extern int b;
+
+某一个程序:
+struct a a;
+int b;
+
+////////////////////////
+
+1.设置单选按钮(仅)
+CheckRadioButton 该函数给一组单选按钮中的一个指定按钮加上选中标志，并且清除组中其他按钮的选中标志
+BOOL CheckRadioButton(
+	HWND hDlg,		//控件所在的窗口句柄
+	int nlDFirstButton,	//首ID
+	int nlDLastBUtton,	//尾ID
+	int nlDCheckButton);	//要改变的RadioButton的ID
+
+3.设置复选框(仅)
+BOOL CheckDlgButton(      
+     HWND hDlg,		// 控件所在窗口的句柄
+     int nIDButton,	// 要改变的CheckBox
+     UINT uCheck	// 要改成的状态
+);
+
+4.查看单选按钮或复选框
+UINT IsDlgButtonChecked(      
+     HWND hDlg,		// 控件所在的窗口句柄     
+     int nIDButton	// 要查看的CheckBox
+);
+
+BST_CHECKED       Button is checked.//表示选中状态
+BST_UNCHECKED     Button is cleared//表示未选中状态
+
+例子：
+CheckDlgButton(hWnd,4,BST_CHECKED);
+
+if ((IsDlgButtonChecked(hWnd,4)==BST_CHECDKED)
+
+///////////////////////////////////
+
+读入txt第几行 fgets(char *buf,int n,FILE *fp);		//从fp读取一个长度为n-1的字符串
+
+///////////////////////////////////
+
+定时器
+UINT_PTR SetTimer(
+HWND hWnd, // 窗口句柄
+UINT_PTR nIDEvent, // 定时器ID，多个定时器时，可以通过该ID判断是哪个定时器
+UINT nElapse, // 时间间隔,单位为毫秒
+TIMERPROC lpTimerFunc // 回调函数
+);
+
+例子：
+1.
+SetTimer(hWnd,1,1000,NULL);
+
+case WM_TIMER:
+	……
+
+2.
+void CALLBACK TimeProc(HWND hWnd,UINT message,UINT idTimer,DWORD dwTime)
+{
+    ……
+}
+
+SetTimer(hWnd,1,1000,TimeProc);
+
+//////////////////////////////////
+
+//定义处理信息的函数
+    wndclass.lpfnWndProc  = WndProc;  //窗口过程
+//处理信息的步骤
+    while(GetMessage(&msg,NULL,0,0))
+    {
+        TranslateMessage(&msg);  //翻译消息
+        DispatchMessage(&msg);  //分派消息
+		……
+	//不能执行的消息在这里处理
+    }
+//处理信息的函数WndProc
+LRESULT CALLBACK WndProc(HWND hWnd,UINT message,WPARAM wParam,LPARAM lParam)
+
+///////////////////////////////////
+
+WS_DISABLED：创建一个初始状态为禁止的子窗口。一个禁止状态的窗口不能接受来自用户的输入信息。
+
+WS_VSCROLL：创建一个有垂直滚动条的窗口。
+
+WS_MAXIMIZE：创建一个初始状态为最大化状态的窗口。
+
+///////////////////////////////////
+
+插入图片(一定要是bmp,不能是.jpg修改文件名得到的，如网上下载保存用bmp文件)
+
+HDC hdc,mdc;
+HBITMAP bg;
+	
+            hdc=GetDC(hwnd);		//这行语句无论在哪里都要加，包括WM_PAINT
+            mdc=CreateCompatibleDC(hdc);
+            bg=(HBITMAP)LoadImage(
+                NULL,
+                "E:\\009.bmp",		//反双斜杠
+                IMAGE_BITMAP,
+                100,100,		//修改大小`
+                LR_LOADFROMFILE
+            );
+            SelectObject(mdc,bg);
+            BitBlt(hdc,100,100,100,100,mdc,0,0,SRCAND);
+
+////////////////////////////////////
+
+滚动条
+
+1.edit控件
+	加上
+	ES_AUTOHSCROLL：当输入文字超出纵向显示范围时自动滚动
+	WS_VSCROLL:竖直方向上的滚动条
+
+
+//////////////////////////////////////
+
+Ctrl+D CodeBlocks复制前一行内容到下一行,此时鼠标要放在前一行
+
+//////////////////////////////////////
+
+1.初始化一定要在
+while(GetMessage(&msg,NULL,0,0))前面
+UpdateWindow(hwnd); 后面
+
+2.SendMessage(hWnd,WM_PAINT,NULL,NULL); 不能放在WM_CREATE
+
+//////////////////////////////////////
+
+WM_PAINT 每当界面发生变化时执行
+	如新建edit文本框,button按钮
+
+//////////////////////////////////////
+
+
+edit文本框
+
+1.edit文本框只要发生变化就会触动WM_COMMAND
+如鼠标按到文本框中，鼠标离开文本框，编辑文本框
+	而且edit还未开始输入就会执行一次，所以要注意做出调整
+
+2.GetWindowText(hEditIntroduce,szPassage,1000);
+注意文本长度和字符串的选择，若文字较长，应选择字符串长度较大的，而不能是像GetWindowText(hEditIntroduce,szTextBuf[100],100)这样的
+
+3.当鼠标按在edit文本框内执行WM_COMMAND时，此时GetWindowText(hEditIntroduce,szPassage,1000); strlen(szPassage)=0,只有文本框进文字发生改变时，strlen(szPassage)才为正常值，即为文本框文字的长度；当鼠标离开文本框时，再执行WM_COMMAND,strlen(szPassage)也为正常值
+
+4.查看文字长度 千万不要用wcslen 会发生奇奇怪怪的错误
+
+//////////////////////////////////////
+
+若文本框边框有一边为空时，要注意字体是否调太大把边框遮住了
+
+//////////////////////////////////////
+
+当关闭窗口时执行case WM_DESTROY:
+
+//////////////////////////////////////
+
+windows下字符串处理 可以这样
+example:获得电影名称和时间
+sprintf(history[total_history-1],TEXT("%s %4d/%02d/%02d %02d:%02d:%02d 星期%s\n"),movie[(PosPage-1)*10+wParam-18].Name,sys.wYear,sys.wMonth,sys.wDay,sys.wHour,sys.wMinute, sys.wSecond,weekname[sys.wDayOfWeek]);
+
+//////////////////////////////////////
+
+获得exe文件所在位置
+1.
+int main(int argc,char *argv[])
+{
+    printf("%s",argv[0]);
+}
+2.
+#include <stdio.h>
+int main()
+{
+    char s[100];
+    GetModuleFileName(NULL,s,100);
+    printf("%s",s);
+    return 0;
+}
+获得路径
+例子E:\MovieSoftware\Movie_Modify\bin\Debug\Movie_Modify.exe 获得E:\MovieSoftware\
+strstr(str1,str2) 函数用于判断字符串str2是否是str1的子串。如果是，则该函数返回str2在str1中首次出现的地址；否则，返回NULL。
+    GetModuleFileName(NULL,filename,100);
+    *(strstr(filename,"MovieSoftware")+14)='\0';
+
+/////////////////////////////////////
+
+
+        t=strstr(movie[i].Photo,"\Photo");
+        if (t==NULL)
+            fprintf(fp_movie,"\n");
+        else
+            fprintf(fp_movie,"%s\n",t);
+        fprintf(fp_movie,"/photo/\n");
+
+
+/////////////////////////////
+
+
