@@ -202,11 +202,20 @@ void work4()
         a[2]=a[i];  //last element , 填补空位
         ans+=a[1].value;
     }
-    tree=a[1].pos;
-    printf("Ans=%ld\n",ans);
-    CodeCh(tree,0,0);
-    for (i=1;i<=n;i++)
-        printf("%c : %s\n",ch[i],code[(long)ch[i]]);
+    if (n==1)
+    {
+        printf("Ans = %ld\n",a[1].value);
+        //"1"也可以
+        printf("%c : %s\n",ch[1],"0");
+    }
+    else
+    {
+        tree=a[1].pos;
+        printf("Ans=%ld\n",ans);
+        CodeCh(tree,0,0);
+        for (i=1;i<=n;i++)
+            printf("%c : %s\n",ch[i],code[(long)ch[i]]);
+    }
 }
 
 int main()

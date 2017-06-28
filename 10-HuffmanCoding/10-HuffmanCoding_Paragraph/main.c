@@ -3,6 +3,7 @@
 #include <string.h>
 #include <malloc.h>
 #include <windows.h>
+#include <math.h>
 #define maxn 1000
 #define maxlen 100
 #define maxascii 128
@@ -12,29 +13,40 @@
 //对于二叉树，因为一般翻译后的电文要尽量短，所以一般01编码不会很长
 //对于最小的霍夫曼编码，叶子结点(信息)数目比内部结点(过程)数目大1，即有n个字符时，树结点数目为2n+1
 
-//不能计算值，如00000和0是不一样的,不能都记为0
 struct node
 {
     char ch;
     struct node *left,*right;
-}*tree;
+}*tree[maxn+1];
 
 struct rec
 {
-    long value;
-    struct node *pos;
+    long value,addr;
 }a[maxn+1];
 
 char code[maxascii][maxlen],str[maxlen];
+long root;
+
+//对已有编码建树：每增加一个0/1，若没有边，则编号加1，建结点;否则到达对应编号的结点
+//越距离根结点，编号最小，根结点编号为1
+
+//设计字符编码：建树：每次添加一个结点，结点编号加1，建结点，连接已有的两棵子树
+//越距离根结点，编号最大，根结点编号为2*n-1(编号最大)
+
+//对于已有边牧建树不需要静态链表，而设计字符编码需要字符编码，否则较复杂
+//使用正常链表：同时结构体添加指针变量？？？
 
 void work1()
 {
-    long n,len,i,j,k;
-    char c,s[30];
-    struct node *pos,*p;
-    tree=(struct node *) malloc (sizeof(struct node));
-    tree->left=NULL;
-    tree->right=NULL;
+    long n,len,sum,i,j,k;
+    char c,s[maxlen];
+    struct node *pos;
+    tree[1]=(struct node *) malloc (sizeof(long));
+    tree[1]->left=NULL;
+    tree[1]->right=NULL;
+    sum=1;
+    root=1;
+
     printf("Please input n rule(s):\t");
     scanf("%ld",&n);
     printf("Please input char & coding\n");
@@ -51,15 +63,16 @@ void work1()
         }
         strcpy(code[(long)c],s);
         len=strlen(s);
-        pos=tree;
+        pos=tree[1];
         for (i=0;i<len;i++)
             if (s[i]=='0')
             {
                 if (pos->left==NULL)
                 {
-                    p=(struct node *) malloc (sizeof(struct node));
-                    pos->left=p;
-                    pos=p;
+                    sum++;
+                    tree[sum]=(struct node *) malloc (sizeof(struct node));
+                    pos->left=tree[sum];
+                    pos=tree[sum];
                     break;
                 }
                 else
@@ -69,9 +82,10 @@ void work1()
             {
                 if (pos->right==NULL)
                 {
-                    p=(struct node *) malloc (sizeof(struct node));
-                    pos->right=p;
-                    pos=p;
+                    sum++;
+                    tree[sum]=(struct node *) malloc (sizeof(struct node));
+                    pos->right=tree[sum];
+                    pos=tree[sum];
                     break;
                 }
                 else
@@ -90,17 +104,19 @@ void work1()
             for (j=i+1;j<len;j++)
                 if (s[j]=='0')
                 {
-                    p=(struct node *) malloc (sizeof(struct node));
-                    pos->left=p;
+                    sum++;
+                    tree[sum]=(struct node *) malloc (sizeof(struct node));
+                    pos->left=tree[sum];
                     pos->right=NULL;
-                    pos=p;
+                    pos=tree[sum];
                 }
                 else
                 {
-                    p=(struct node *) malloc (sizeof(struct node));
-                    pos->left=NULL;
-                    pos->right=p;
-                    pos=p;
+                    sum++;
+                    tree[sum]=(struct node *) malloc (sizeof(struct node));
+                    pos->right=tree[sum];
+                    pos->right=NULL;
+                    pos=tree[sum];
                 }
             pos->left=NULL;
             pos->right=NULL;
@@ -127,7 +143,7 @@ void work2()
     }
     len=strlen(str);
     for (i=0;i<len;i++)
-        //judge whether exist or not,初始化为"",若有该字符的编码，则会修改，不为""        if (strcmp(code[(long)str[i]],"")==0)
+        //judge whether exist or not,初始化为"",若有该字符的编码，则会修改，不为""
         if (strcmp(code[(long)str[i]],"")==0)
         {
             system("cls");
@@ -157,8 +173,8 @@ void work3()
         strcat(str,s);
     }
     len=strlen(str);
-    p=(struct node *) malloc (sizeof(struct node));
-    p=tree;
+    p=tree[root];
+
     for (i=0;i<len;i++)
     {
         if (str[i]=='0')
@@ -186,11 +202,11 @@ void work3()
         if (p->left==NULL && p->right==NULL)
         {
             printf("%c",p->ch);
-            p=tree;
+            p=tree[root];
         }
     }
     //若最后还有剩余，则是错误的
-    if (p!=tree)
+    if (p!=tree[root])
     {
         system("cls");
         printf("Wrong\n");
@@ -212,29 +228,43 @@ void CodeCh(struct node *p,long lens)
     CodeCh(p->left,lens+1);
     str[lens]='1';
     CodeCh(p->right,lens+1);
-    lens--;
 }
 
 void work4()
 {
-    long n,ans=0,i,j,k;
-    struct node *p;
+    long n,ans=0,num,i,j,k;
     struct rec temp;
-    char c,ch[maxn+1];
-    printf("Please input n rule(s):\t");
-    scanf("%ld",&n);
-    printf("Please input char & coding\n");
-    for (i=1;i<=n;i++)
+    char str[1000];
+    long g[128],len;
+    for (i=0;i<128;i++)
+        g[i]=0;
+    printf("Please input a paragraph:\n");
+    printf("\tA blank line means the end of input\n");
+    gets(str);
+    while (1)
     {
-        p=(struct node *) malloc (sizeof(struct node));
-        //skip '\n'
-        scanf("%c",&c);
-        scanf("%c%ld",&ch[i],&a[i].value);
-        p->ch=ch[i];
-        p->left=NULL;
-        p->right=NULL;
-        a[i].pos=p;
+        gets(str);
+        len=strlen(str);
+        if (len==0)
+            break;
+        len=strlen(str);
+        for (i=0;i<len;i++)
+            g[(long)str[i]]++;
     }
+    n=0;
+    for (i=0;i<128;i++)
+        if (g[i]!=0)
+        {
+            n++;
+            tree[n]=(struct node *) malloc (sizeof(struct node));
+            tree[n]->ch=(char)(i);
+            a[n].value=g[i];
+            a[n].addr=n;
+            tree[n]->left=NULL;
+            tree[n]->right=NULL;
+        }
+
+    num=n;
     for (i=n;i>1;i--)
     {
         //sort a[1]~a[i]
@@ -247,39 +277,37 @@ void work4()
                     a[k+1]=temp;
                 }
         //merge
-
-        //树根结点指向左右子树
-        p=(struct node *) malloc (sizeof(struct node));
-        p->left=a[1].pos;
-        p->right=a[2].pos;
+        num++;
+        tree[num]=(struct node *) malloc (sizeof(struct node));
         a[1].value+=a[2].value;
-        a[1].pos=p;
-        a[2]=a[i];  //last element , 填补空位
+        tree[num]->left=tree[a[1].addr];
+        tree[num]->right=tree[a[2].addr];
+        a[1].addr=num;          //new point number
+        a[2].value=a[i].value;    //fill the blank
+        a[2].addr=a[i].addr;
         ans+=a[1].value;
     }
+
     if (n==1)
     {
         printf("Ans=%ld\n",a[1].value);
         //"1"也可以
-        printf("%c : %s\n",ch[1],"0");
+        printf("%c : %s\n",tree[1]->ch,"0");
     }
     else
     {
-        tree=a[1].pos;
         printf("Ans=%ld\n",ans);
-        CodeCh(tree,0);
+        //根结点的编号
+        root=num;
+        CodeCh(tree[root],0);
         for (i=1;i<=n;i++)
-            printf("%c : %s\n",ch[i],code[(long)ch[i]]);
+            printf("%c : %s\n",tree[i]->ch,code[(long)tree[i]->ch]);
     }
 }
 
 int main()
 {
-    //01串
     long mode,i;
-    tree=(struct node *) malloc (sizeof(struct node));
-    tree->left=NULL;
-    tree->right=NULL;
     for (i=0;i<=maxascii;i++)
         strcpy(code[i],"");
     while (1)
@@ -344,14 +372,11 @@ abcd
 01
 
 4
-8
-a 10
-b 20
-c 15
-d 32
-e 40
-f 60
-g 26
-h 18
+abc
+cba
+ccde
 
+*/
+/*
+FAFDEFADCBDFBAAFCC
 */

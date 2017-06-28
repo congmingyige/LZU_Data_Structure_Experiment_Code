@@ -229,6 +229,7 @@ void CodeCh(struct node *p,long lens)
     CodeCh(p->right,lens+1);
 }
 
+//这里不需要用到tree指针的value变量
 void work4()
 {
     long n,ans=0,num,i,j,k;
@@ -270,14 +271,22 @@ void work4()
         a[2].addr=a[i].addr;
         ans+=a[1].value;
     }
-    root=num;
 
-    printf("Ans=%ld\n",ans);
-    //根结点的编号
-    CodeCh(tree[root],0);
-    for (i=1;i<=n;i++)
-        printf("%c : %s\n",tree[i]->ch,code[(long)tree[i]->ch]);
-
+    if (n==1)
+    {
+        printf("Ans=%ld\n",a[1].value);
+        //"1"也可以
+        printf("%c : %s\n",tree[1]->ch,"0");
+    }
+    else
+    {
+        printf("Ans=%ld\n",ans);
+        //根结点的编号
+        root=num;
+        CodeCh(tree[root],0);
+        for (i=1;i<=n;i++)
+            printf("%c : %s\n",tree[i]->ch,code[(long)tree[i]->ch]);
+    }
 }
 
 int main()

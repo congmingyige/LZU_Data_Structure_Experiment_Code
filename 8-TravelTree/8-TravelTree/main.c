@@ -201,6 +201,7 @@ void DLR_1(struct node *p)
             printf("%ld ",p->value);
             p=p->left;
         }
+        //这里是处理右子树为空的结点，因为这些结点没有必要处理
         while (count!=0 && stack[count]->right==NULL)
             count--;
         if (count!=0)
@@ -265,7 +266,7 @@ void LRD_1(struct node *p)
             vis[count]=false;
             p=p->left;
         }
-        //当右子树为空，可直接输出根节点
+        //当该结点的左右子树都访问过(这里的访问包括该结点的右子树为空，不用访问)，输出该结点
         while (count!=0 && (stack[count]->right==NULL || vis[count]==true))
         {
             printf("%ld ",stack[count]->value);
@@ -275,8 +276,8 @@ void LRD_1(struct node *p)
         {
             p=stack[count]->right;
             vis[count]=true;
-            //这里没有出栈，只是设置被使用
-                //如268行(while……),当vis[count]=true,即被使用时，输出该节点，并出栈
+            //这里没有出栈，只是设置该结点的左子树已访问过
+                //270行(while……)，输出节点，并出栈
         }
     }
     while (p!=NULL || count!=0);
@@ -358,7 +359,7 @@ void LRD_2(struct node *p)
             vis[count]=false;
             p=p->left;
         }
-        //当右子树为空，可直接输出根节点
+        //当该结点的左右子树都访问过，输出该结点
         while (count!=0 && vis[count]==true)
         {
             printf("%ld ",stack[count]->value);
@@ -375,10 +376,13 @@ void LRD_2(struct node *p)
 
 void ChangeSubtree(struct node *p)
 {
-    struct node *temp;
-    temp=p->left;
-    p->left=p->right;
-    p->right=temp;
+    if (p!=NULL)
+    {
+    	struct node *temp;
+    	temp=p->left;
+	p->left=p->right;
+    	p->right=temp;
+    }
 }
 
 //统计高度
